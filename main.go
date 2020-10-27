@@ -29,8 +29,10 @@ func main() {
 	router.HandleFunc("/_ah/warmup", func(w http.ResponseWriter, r *http.Request) {
 		log.Println("warmup done")
 	})
-
 	router.HandleFunc("/", indexHandler)
+
+	apiv1 := router.PathPrefix("/api/v1").Subrouter()
+	registerRoutesForAPIV1(apiv1)
 
 	port := os.Getenv("PORT")
 	if port == "" {
@@ -56,4 +58,17 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	uptime := time.Since(startupTime).Seconds()
 	fmt.Fprintf(w, "Hello, World! Uptime: %.2fs\n", uptime)
+}
+
+func registerRoutesForAPIV1(api *mux.Router) {
+	api.HandleFunc("/", indexV1Handler).Methods("GET")
+}
+
+func indexV1Handler(w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != "/api/v1/" {
+		http.NotFound(w, r)
+		return
+	}
+	uptime := time.Since(startupTime).Seconds()
+	fmt.Fprintf(w, "API Version 1. Uptime: %.2fs\n", uptime)
 }
