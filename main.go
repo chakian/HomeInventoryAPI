@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var versionDbg string = "v0.0.1"
+var versionDbg string = "v0.0.2"
 
 var startupTime time.Time
 
