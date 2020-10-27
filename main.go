@@ -12,6 +12,8 @@ import (
 	"github.com/gorilla/mux"
 )
 
+var versionDbg string = "v0.0.1"
+
 var startupTime time.Time
 
 func main() {
@@ -57,7 +59,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uptime := time.Since(startupTime).Seconds()
-	fmt.Fprintf(w, "Hello, World! Uptime: %.2fs\n", uptime)
+	fmt.Fprintf(w, "Hello, World! Uptime: %.2fs\n%s", uptime, versionDbg)
 }
 
 func registerRoutesForAPIV1(api *mux.Router) {
@@ -70,5 +72,5 @@ func indexV1Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	uptime := time.Since(startupTime).Seconds()
-	fmt.Fprintf(w, "API Version 1. Uptime: %.2fs\n", uptime)
+	fmt.Fprintf(w, "API Version 1. Uptime: %.2fs\n%s", uptime, versionDbg)
 }
