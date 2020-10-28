@@ -12,7 +12,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-var versionDbg string = "v0.0.2"
+var versionDbg string = "v0.0.3"
 
 var startupTime time.Time
 
@@ -21,6 +21,7 @@ func main() {
 
 	setup(context.Background())
 	router := mux.NewRouter()
+	// router.Use(app.JwtAuthentication)
 
 	header := handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"})
 	methods := handlers.AllowedMethods([]string{"GET", "POST", "FETCH", "DELETE", "PUT", "HEAD", "OPTIONS"})
