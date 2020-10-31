@@ -1,6 +1,7 @@
 package main
 
 import (
+	"HomeInventoryAPI/controllers"
 	"context"
 	"fmt"
 	"log"
@@ -65,6 +66,8 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 
 func registerRoutesForAPIV1(api *mux.Router) {
 	api.HandleFunc("/", indexV1Handler).Methods("GET")
+
+	api.HandleFunc("/inventory/all", controllers.GetAllInventory).Methods("GET")
 }
 
 func indexV1Handler(w http.ResponseWriter, r *http.Request) {
